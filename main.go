@@ -19,19 +19,21 @@ func main() {
 
 	for i := 0; i < len(pairs); i++ {
 
-		newLetters, character := generatePairs(letters[:])
-		pairs[i] = character
-		letters = newLetters
+		//newLetters, character := generatePairs(letters[:])
+		//pairs[i] = character
+		//letters = newLetters
+
+		letters, pairs[i] = generatePairs(letters[:])
 
 	}
 
 	time.Sleep(time.Second * 2)
 
-	end := time.Now().UTC()
+	//end := time.Now().UTC()
 
-	elapsed := end.Sub(start)
+	//elapsed := end.Sub(start)
 
-	//elapsed := time.Since(start)
+	elapsed := time.Since(start)
 
 	fmt.Println(pairs)
 
@@ -43,15 +45,13 @@ func generatePairs(letters []string) ([]string, string) {
 
 	index := rand.Intn(len(letters) - 1)
 
-	character := letters[index]
-
 	var subLetters []string
 
 	subLetters = append(letters[1+index:], subLetters...)
 
 	subLetters = append(letters[:index], subLetters...)
 
-	return subLetters, character
+	return subLetters, letters[index]
 
 	//pairs := []string{}
 	//print the sub slice starting from index 1(included) to index 4(excluded)
