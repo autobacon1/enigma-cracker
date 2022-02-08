@@ -7,57 +7,65 @@ import (
 )
 
 func main() {
-	fmt.Println("hello world")
 
+	plugboardPairs := make([]string, 20)
+	fmt.Println(plugboardPairs)
+	plugboardPairs = generate()
+	fmt.Println(plugboardPairs)
+
+	//fmt.Println("Generating Pairs")
+	//result := generatePairs()
+	//fmt.Println(result)
+}
+
+func generate() []string {
+	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+	pairs := make([]string, 20)
 	rand.Seed(time.Now().UnixNano())
 
-	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+	for i := 0; i < 20; i++ {
+		index := rand.Intn(len(letters))
+		pairs[i] = letters[index]
+		letters = append(letters[:index], letters[index+1:]...)
+	}
+	return pairs
+}
 
+func generatePairs() [20]string {
+	rand.Seed(time.Now().UnixNano())
+	//letters := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 	pairs := [20]string{}
 
-	start := time.Now().UTC()
-
 	for i := 0; i < len(pairs); i++ {
-
-		//newLetters, character := generatePairs(letters[:])
-		//pairs[i] = character
-		//letters = newLetters
-
-		letters, pairs[i] = generatePairs(letters[:])
-
+		//letters, pairs[i] = letterSelector(letters[:])
 	}
+	return pairs
+}
 
-	time.Sleep(time.Second * 2)
+func letterSelector(input []string) ([]string, string) {
 
-	//end := time.Now().UTC()
+	//letterArray := make([]string, len(input))
+	//reducedLetterArray := make([]string, 0)
 
-	//elapsed := end.Sub(start)
+	index := rand.Intn(len(input))
 
-	elapsed := time.Since(start)
+	_ = append(input[index+1:], input[:index]...)
 
-	fmt.Println(pairs)
+	//copy(letterArray, input)
+	//firstPart := input[:index]
+	//_ = append(input[index+1:], firstPart...)
+	//_ = append(input[:index], reducedLetterArray...)
 
-	fmt.Println(elapsed)
+	//reducedLetterArray = append(input[index+1:], reducedLetterArray...)
+	//reducedLetterArray = append(input[:index], reducedLetterArray...)
+	//return reducedLetterArray, input[index]
+	return input[:len(input)-1], input[index-1]
 
 }
 
-func generatePairs(letters []string) ([]string, string) {
-
-	index := rand.Intn(len(letters) - 1)
-
-	var subLetters []string
-
-	subLetters = append(letters[1+index:], subLetters...)
-
-	subLetters = append(letters[:index], subLetters...)
-
-	return subLetters, letters[index]
-
-	//pairs := []string{}
-	//print the sub slice starting from index 1(included) to index 4(excluded)
-	//fmt.Println("numbers[1:4] ==", numbers[1:4])
-
-}
+//pairs := []string{}
+//print the sub slice starting from index 1(included) to index 4(excluded)
+//fmt.Println("numbers[1:4] ==", numbers[1:4])
 
 //func randify(characterSet []string) string {
 //index := rand.Intn(len(characterSet))
