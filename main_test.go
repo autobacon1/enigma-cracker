@@ -36,9 +36,3 @@ func BenchmarkGeneratePairs(b *testing.B) {
 		generate()
 	}
 }
-
-func BenchmarkGeneratePairs2(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		generatePairs()
-	}
-}
